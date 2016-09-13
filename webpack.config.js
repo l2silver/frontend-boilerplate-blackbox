@@ -42,6 +42,7 @@ module.exports = {
       },
       {
         test: /\.(js|jsx)$/,
+        include: /client/,
         exclude: /node_modules/,
         loaders: [
           'react-hot',
@@ -51,7 +52,10 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['', '.js', '.jsx'],
+    alias: {
+      "react": __dirname + '/node_modules/react',
+    }
   },
   postcss: [
     rucksack({
