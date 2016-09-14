@@ -28,12 +28,9 @@ class Routes extends Component {
 		this.createElement = this.createElement.bind(this)
 	}
 	createElement(RouteHandler, props) {
-    const {blackbox} = this.props
+    	const {blackbox} = this.props
     	return <RouteHandler {...props} blackbox={blackbox} />
 	}
-  getBlackbox(c){
-    return c.props.blackbox
-  }
 	render(){
 		return <Router history={history} createElement={this.createElement} routes={routes}>
 	</Router>		
