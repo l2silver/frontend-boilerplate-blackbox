@@ -1,11 +1,13 @@
 
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
-import { connect as filterConnect } from 'react-redux-blackbox'
+import { filterConnect } from 'react-redux-blackbox'
 import { connect } from 'react-redux'
+import { createSelector } from 'reselect'
 import Header from '../../components/Header'
 import MainSection from '../../components/MainSection'
 import * as TodoActions from '../../actions/todos'
+import * as TodontActions from '../../actions/todonts'
 import style from './style.css'
 
 const defaultInputs = {}
@@ -28,26 +30,35 @@ class App extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    todos: state.todos
-  }
-}
+const mapStateToPropsTodos = createSelector(
+  (state)=>state.todos,
+  todos=>({todos})
+)
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToPropsTodos(dispatch) {
   return {
     actions: bindActionCreators(TodoActions, dispatch)
   }
 }
 
+const mapStateToPropsTodonts = createSelector(
+  (state)=>state.todonts,
+  todos=>({todos})
+)
+
+
+function mapDispatchToPropsTodonts(dispatch) {
+  return {
+    actions: bindActionCreators(TodontActions, dispatch)
+  }
+}
+
 export const BlackboxApp = filterConnect(
-    [mapStateToProps, ()=>defaultInputs], //this isn't really doing anything, just showing the new format. Factories in this format also work
-    mapDispatchToProps,
-    null,
-    {withRef: true}
+    [mapStateToPropsTodos, ()=>defaultInputs],
+    mapDispatchToPropsTodos
   )(App)
 
 export const RegularReduxApp = connect(
-    mapStateToProps,
-    mapDispatchToProps
+    mapStateToPropsTodonts,
+    mapDispatchToPropsTodonts
   )(App)

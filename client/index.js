@@ -11,11 +11,18 @@ import configure from './store'
 const store = configure()
 const history = syncHistoryWithStore(browserHistory, store)
 
+function notInThisAPP(){
+	return 'not in this app';
+}
+
 class App extends Component {
+	constructor(props, context){
+		super(props, context)
+	}
 	render(){
 		return <div>
 			<BlackboxApp {...this.props} />
-			<RegularReduxApp {...this.props} appendMapStateToProps={()=>'not in this app'} />
+			<RegularReduxApp {...this.props} appendMapStateToProps={notInThisAPP} />
 		</div>
 	}
 }
@@ -29,7 +36,7 @@ class Routes extends Component {
 	}
 	createElement(RouteHandler, props) {
     	const {blackbox} = this.props
-    	return <RouteHandler {...props} blackbox={blackbox} />
+    	return <RouteHandler blackbox={blackbox} />
 	}
 	render(){
 		return <Router history={history} createElement={this.createElement} routes={routes}>
