@@ -13,7 +13,7 @@ class Header extends Component {
     this.callCount ? ++this.callCount : this.callCount = 1
     return (
       <header>
-        <h1>{`Call Count: ${this.callCount}`}</h1>
+        <h1>{`Render Count: ${this.callCount}`}</h1>
         <TodoTextInput
           newTodo
           onSave={::this.handleSave}
